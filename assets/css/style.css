@@ -20,6 +20,7 @@ header {
   border-radius: 0;
   border-bottom: 10px solid black;
   padding: 60px;
+  margin-bottom: 30px;
 }
 
 .description {
@@ -64,6 +65,11 @@ header {
   border-bottom-right-radius: 15px;
   background-color: #06aed5;
   color: white;
+}
+
+#save-icon {
+  font-size: 30px;
+  padding-top: 20px;
 }
 
 .saveBtn i:hover {
