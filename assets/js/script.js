@@ -10,23 +10,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let date = new Date();
   let hour = date.getHours();
-  let workingHours = [9, 10, 11, 12, 13, 14, 15, 16, 17];
+  let workingHours = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
 
   for (let i = 0; i < workingHours.length; i++) {
     let newRow = $("<div>");
     newRow.addClass("row");
-    newRow.innerHTML = `<div class="col-1 col-xs-2 hour">${workingHours[i]}</div>
-    <textarea class="col-10 col-xs-8 description"></textarea>
-    <div class="col-1 col-xs-2 btn saveBtn"><i id="save-icon" class='fas fa-save'></i></div>`;
+    let hourDiv = $("<div>");
+    hourDiv.addClass("col-1 col-xs-2 hour");
+    hourDiv.text(`${workingHours[i]}:00`);
+    let textDiv = $("<textarea>");
+    textDiv.addClass("col-10 col-xs-8 description");
+    let saveBtn = $("<div>");
+    saveBtn.addClass("col-1 col-xs-2 btn saveBtn");
+    let saveIcon = $("<i>");
+    saveIcon.addClass("fas fa-save");
+    saveIcon.attr("id", "save-icon");
+
+    saveBtn.append(saveIcon);
+    newRow.append(hourDiv, textDiv, saveBtn);
 
     if (workingHours[i] < hour) {
-      newRow.addClass("past");
+      textDiv.addClass("past");
     } else if (workingHours[i] > hour) {
-      newRow.addClass("future");
+      textDiv.addClass("future");
     } else {
-      newRow.addClass("present");
+      textDiv.addClass("present");
     }
 
-    // $('.container').append(newRow);
+    $(".container").append(newRow);
   }
 });
