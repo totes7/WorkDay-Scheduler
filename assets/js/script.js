@@ -8,6 +8,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   setInterval(displayTime, 1000);
 
+  // Dynamically create and append hours row elements
+
   let date = new Date();
   let hour = date.getHours();
   let workingHours = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
@@ -15,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
   for (let i = 0; i < workingHours.length; i++) {
     let newRow = $("<div>");
     newRow.addClass("row");
+    newRow.attr("id", "h-" + workingHours[i]);
     let hourDiv = $("<div>");
     hourDiv.addClass("col-1 col-xs-2 hour");
     hourDiv.text(`${workingHours[i]}:00`);
@@ -39,4 +42,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
     $(".container").append(newRow);
   }
+
+  // Save button
+  $(".saveBtn").on("click", function () {
+    let time = $(this).siblings(".hour").text();
+
+    let text = $(this).siblings(".description").val();
+
+    // save to local storage
+    localStorage.setItem(time, text);
+  });
+
+  // Dispay items after page refresh
+  function displayStoredItems() {
+    for (let i = 0; i < workingHours.length; i++) {
+      const hour = workingHours[i] + ":00";
+      let storedItem = localStorage.getItem(hour);
+      console.log(storedItem);
+      if (storedItem) {
+        $(`#h-${workingHours[i]}`).children('.description').text(storedItem);
+      }
+    }
+  }
+
+  displayStoredItems();
 });
